@@ -5,6 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css"/>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background: #f8eaea;
+
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 70px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+input, button {
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+button {
+    background: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.countdown {
+    margin-top: 20px;
+}
+
+h1,h2 {
+    color: #c0392b;
+    margin-bottom: 10px;
+}
+    </style>
 </head>
 <body>
     <nav>
@@ -12,35 +55,60 @@
             <a href="index.html">Home</a>
             <a href="budget_Calculator.html">Budget Calculator</a>
             <a href="checklist.html">Check-List</a>
-            <a href="">Guests</a>
+            <a href="guests.html">Guests</a>
             <a href="countdown.html">Countdown</a>
         </div>
     </nav>
-        <div class="container">
-            <h1>Wedding Countdown</h1>
-            <label>Select your wedding date:</label>
-
-            <input type="date" id="weddingDate" onchange="startCountdown()">
-            <div class="countdown">
-                <div class="box">
-                    <span id="days">0</span>
-                    <p>Days</p>
-                </div>
-                <div class="box">
-                    <span id="hours">0</span>
-                    <p>Hours</p>
-                </div>
-                <div class="box">
-                    <span id="minutes">0</span>
-                    <p>Minutes</p>
-                </div>
-                <div class="box">
-                    <span id="seconds">0</span>
-                    <p>Seconds</p>
-                </div>
-            </div>
+    <div class="container">
+        <h1>Event Countdown Timer</h1>
+    
+        <label for="dateInput">Enter Event Date:</label>
+        <input type="date" id="dateInput">
+    
+        <button id="startBtn">Start Countdown</button>
+    
+        <div class="countdown">
+            <h2>Time Remaining</h2>
+            <p id="output">Enter a date to begin countdown...</p>
         </div>
-        
-    <script src="countdown.js"></script>
+    </div>
+
+    <script>
+        const dateInput = document.getElementById("dateInput");
+            const startBtn = document.getElementById("startBtn");
+            const output = document.getElementById("output");
+            let timer;
+
+            startBtn.addEventListener("click", () => {
+                const eventDate = new Date(dateInput.value);
+
+                if (!dateInput.value) {
+                    output.innerHTML = "Please select a valid date!";
+                    return;
+                }
+
+                clearInterval(timer);
+
+                timer = setInterval(() => {
+                    const now = new Date();
+                    const difference = eventDate - now;
+
+                    if (difference <= 0) {
+                        output.innerHTML = "🎉 The event has arrived!";
+                        clearInterval(timer);
+                        return;
+                    }
+
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+                    const seconds = Math.floor((difference / 1000) % 60);
+
+                    output.innerHTML =
+                        `${days} Days : ${hours} Hours : ${minutes} Minutes : ${seconds} Seconds`;
+                }, 1000);
+            });
+
+    </script>
 </body>
 </html>

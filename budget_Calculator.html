@@ -7,6 +7,94 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Shojumaru&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #f8eaea;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 60%;
+    margin: 40px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #c9c9c9;
+}
+
+h1 {
+    text-align: center;
+    color: #c0392b;
+    margin-bottom: 20px;
+}
+
+.input-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-section input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    outline: none;
+}
+
+#addBtn {
+    padding: 10px 20px;
+    background: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#addBtn:hover {
+    background: #a93226;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th {
+    background: #c0392b;
+    color: #fff;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
+.total-box {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+}
+    </style>
 
 </head>
 <body>
@@ -15,10 +103,84 @@
             <a href="index.html">Home</a>
             <a href="budget_Calculator.html">Budget Calculator</a>
             <a href="checklist.html">Check-List</a>
-            <a href="">Guests</a>
+            <a href="guests.html">Guests</a>
             <a href="countdown.html">Countdown</a>
         </div>
     </nav>
+        <div class="container">
+            <h1>Wedding Budget Planner</h1>
     
+            <div class="input-section">
+                <input type="text" id="expenseName" placeholder="Expense Name (Venue, Decor...)">
+                <input type="number" id="expenseAmount" placeholder="Amount (₹)">
+                <button id="addBtn">Add Expense</button>
+            </div>
+    
+            <table id="expenseTable">
+                <thead>
+                    <tr>
+                        <th>Expense</th>
+                        <th>Amount (₹)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+    
+            <div class="total-box">
+                <h3>Total Cost: ₹ <span id="totalAmount">0</span></h3>
+            </div>
+        </div>
+    
+        <script>let addBtn = document.getElementById("addBtn");
+            let tableBody = document.querySelector("#expenseTable tbody");
+            let totalAmount = document.getElementById("totalAmount");
+
+            addBtn.addEventListener("click", () => {
+                let name = document.getElementById("expenseName").value;
+                let amount = document.getElementById("expenseAmount").value;
+
+                if (name === "" || amount === "") {
+                    alert("Please enter both expense name and amount!");
+                    return;
+                }
+
+                amount = Number(amount);
+
+                let row = document.createElement("tr");
+
+                row.innerHTML = 
+                `<td>${name}</td>
+                <td>${amount}</td>
+                <td><button class="delete-btn">Delete</button></td>`;
+
+                tableBody.appendChild(row);
+
+                updateTotal();
+
+                row.querySelector(".delete-btn").addEventListener("click", () => {
+                    row.remove();
+                    updateTotal();
+                });
+
+                document.getElementById("expenseName").value = "";
+                document.getElementById("expenseAmount").value = "";
+            });
+
+            function updateTotal() {
+                let rows = tableBody.querySelectorAll("tr");
+                let sum = 0;
+
+                rows.forEach(r => {
+                    let amount = Number(r.children[1].textContent);
+                    sum += amount;
+                });
+
+                totalAmount.textContent = sum;
+            }</script>
+    </body>
+    
+    </html>
+
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <nav>
+        <div id="nav">
+            <a href="index.html">Home</a>
+            <a href="budget_Calculator.html">Budget Calculator</a>
+            <a href="checklist.html">Check-List</a>
+            <a href="">Guests</a>
+            <a href="countdown.html">Countdown</a>
+        </div>
+    </nav>
+        <div class="container">
+            <h1>Wedding Countdown</h1>
+            <label>Select your wedding date:</label>
+
+            <input type="date" id="weddingDate" onchange="startCountdown()">
+            <div class="countdown">
+                <div class="box">
+                    <span id="days">0</span>
+                    <p>Days</p>
+                </div>
+                <div class="box">
+                    <span id="hours">0</span>
+                    <p>Hours</p>
+                </div>
+                <div class="box">
+                    <span id="minutes">0</span>
+                    <p>Minutes</p>
+                </div>
+                <div class="box">
+                    <span id="seconds">0</span>
+                    <p>Seconds</p>
+                </div>
+            </div>
+        </div>
+        
+    <script src="countdown.js"></script>
+</body>
+</html>

@@ -256,7 +256,6 @@
             if (name && side) {
                 const newGuest = { name, side };
                 guests.push(newGuest);
-                localStorage.setItem('guests', JSON.stringify(guests));
                 displayGuests();
                 guestForm.reset();
             }

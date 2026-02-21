@@ -127,7 +127,146 @@
             if (name && side) {
                 const newGuest = { name, side };
                 guests.push(newGuest);
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Guest List</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .guest-list {
+            margin-top: 20px;
+        }
+
+        .guest-item {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div id="nav">
+            <a href="index.html">Home</a>
+            <a href="budget_Calculator.html">Budget Calculator</a>
+            <a href="checklist.html">Check-List</a>
+            <a href="guests.html">Guests</a>
+            <a href="countdown.html">Countdown</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Enter Guest Details</h2>
+        <form id="guestForm">
+            <label for="name">Guest Name:</label>
+            <input type="text" id="name" required />
+
+            <label for="side">Side:</label>
+            <select id="side" required>
+                <option value="">Select Side</option>
+                <option value="Bride">Bride's Side</option>
+                <option value="Groom">Groom's Side</option>
+            </select>
+
+            <button type="submit">Add Guest</button>
+        </form>
+
+        <div class="guest-list" id="guestListContainer">
+            <h3>Guest List</h3>
+            <div id="guestList"></div>
+        </div>
+    </div>
+
+    <script>
+        const guestForm = document.getElementById('guestForm');
+        const guestListDiv = document.getElementById('guestList');
+        let guests = JSON.parse(localStorage.getItem('guests')) || [];
+
+        function displayGuests() {
+            guestListDiv.innerHTML = '';
+            guests.forEach((guest, index) => {
+                const div = document.createElement('div');
+                div.className = 'guest-item';
+                div.textContent = `${guest.name} (${guest.side})`;
+                guestListDiv.appendChild(div);
+            });
+        }
+
+        displayGuests();
+
+        guestForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const side = document.getElementById('side').value;
+
+            if (name && side) {
+                const newGuest = { name, side };
+                guests.push(newGuest);
                 localStorage.setItem('guests', JSON.stringify(guests));
+                displayGuests();
+                guestForm.reset();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+
                 displayGuests();
                 guestForm.reset();
             }

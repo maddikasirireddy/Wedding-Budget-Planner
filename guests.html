@@ -252,10 +252,11 @@
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
             const side = document.getElementById('side').value;
-
+            
             if (name && side) {
                 const newGuest = { name, side };
                 guests.push(newGuest);
+                localStorage.setItem('guests', JSON.stringify(guests));
                 displayGuests();
                 guestForm.reset();
             }

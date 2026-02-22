@@ -232,37 +232,36 @@
     </div>
 
     <script>
-        const guestForm = document.getElementById('guestForm');
-        const guestListDiv = document.getElementById('guestList');
-        let guests = JSON.parse(localStorage.getItem('guests')) || [];
+    const guestForm = document.getElementById('guestForm');
+    const guestListDiv = document.getElementById('guestList');
+    let guests = JSON.parse(localStorage.getItem('guests')) || [];
 
-        function displayGuests() {
-            guestListDiv.innerHTML = '';
-            guests.forEach((guest, index) => {
-                const div = document.createElement('div');
-                div.className = 'guest-item';
-                div.textContent = `${guest.name} (${guest.side})`;
-                guestListDiv.appendChild(div);
-            });
-        }
-
-        displayGuests();
-
-        guestForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const side = document.getElementById('side').value;
-            
-            if (name && side) {
-                const newGuest = { name, side };
-                guests.push(newGuest);
-                localStorage.setItem('guests', JSON.stringify(guests));
-                displayGuests();
-                guestForm.reset();
-            }
+    function displayGuests() {
+        guestListDiv.innerHTML = '';
+        guests.forEach((guest, index) => {
+            const div = document.createElement('div');
+            div.className = 'guest-item';
+            div.textContent = `${guest.name} (${guest.side})`;
+            guestListDiv.appendChild(div);
         });
-    </script>
+    }
 
+    displayGuests();
+
+    guestForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const side = document.getElementById('side').value;
+
+        if (name && side) {
+            const newGuest = { name, side };
+            guests.push(newGuest);
+            localStorage.setItem('guests', JSON.stringify(guests));
+            displayGuests();
+            guestForm.reset();
+        }
+    });
+</script>
 </body>
 
 </html>
